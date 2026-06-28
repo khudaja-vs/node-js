@@ -1,0 +1,19 @@
+const http = require("http");
+const fs=require("fs");
+
+
+const myWork = http.createServer((req, res) =>{
+    const  log = `${new Date().toLocaleString("en-PK")}: ${req.url} New Req Received\n`;
+    fs.appendFile('log.txt', log, (err, data) =>{
+        switch(req.url){
+            case '/': res.end("Home Page");
+            break
+            case 'about': res.end("About");
+            break
+            default: res.end("404 Not Found!");
+        }
+         
+    });
+});
+
+myWork.listen(8000, ()=> console.log("Server Started"));
